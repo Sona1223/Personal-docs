@@ -4,20 +4,31 @@ pipeline {
     stages {
         stage('git Checkout') {
             steps {
-               git clone 'https://github.com/Sona1223/Personal-docs.git'
+               git credentialsId: 'javahome2', url: 'https://github.com/Sona1223/Personal-docs.git'
             }
         }
     
-        stage('Build') {
+        stage('Maven Build') {
             steps {
-            Mvn clean package
+            sh "Mvn clean package"
+            sh "mv target/*.war target/myweb.war"
             }
         }
    
         stage('Deploy') {
             steps {
-                scp source destination
-                tomcat9 service start
+               sshagent(['tomcat-new']) {
+               
+               sh """
+               
+               scp -o strictHostkeyChecking=no target/myweb.war ec2-user@172.31.36.246:/home/ec2-user/apache-tomcat9/webapps/
+               
+               ssh ec2-user@172.31.36.246:/home/ec2-user/apache-tomcat9/bin/shutdown.sh
+               
+               ssh ec2-user@172.31.36.246:/home/ec2-user/apache-tomcat9/bin/startup.sh
+               
+               """
+}
             }
         }
     }
