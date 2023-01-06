@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('git Checkout') {
+            steps {
+               git clone 'https://github.com/Sona1223/Personal-docs.git'
+            }
+        }
+    
+        stage('Build') {
+            steps {
+            Mvn clean package
+            }
+        }
+   
+        stage('Deploy') {
+            steps {
+                scp source destination
+                tomcat9 service start
+            }
+        }
+    }
+}
