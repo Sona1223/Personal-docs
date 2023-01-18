@@ -14,7 +14,17 @@ pipeline {
             }
         }
    
-        stage('Deploy') {
+        stage('Deployment') {
+            steps {
+                echo 'Expert in DevOps'
+            }
+        }
+         stage('test') {
+            steps {
+                echo 'Expert in DevOps'
+            }
+        }
+         stage('Delivery') {
             steps {
                 echo 'Expert in DevOps'
             }
