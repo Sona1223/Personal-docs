@@ -10,7 +10,7 @@ pipeline {
     
         stage('Build') {
             steps {
-                echo 'Welcome to DevOps'
+                echo 'Welcome to hcl'
             }
         }
    
