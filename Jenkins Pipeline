@@ -21,7 +21,7 @@ pipeline {
         }
          stage('test') {
             steps {
-                echo 'Expert in DevOps'
+                echo 'demo in DevOps'
             }
         }
          stage('Delivery') {
